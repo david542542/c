@@ -6,6 +6,7 @@
 // We have two stacks:
 // 1 - an operator that is not bound to operands (+, -, etc.)
 // 2 - a Operand stack for all operands (Variable, Constant, Unary/Binary expression)
+// test on server
 
 typedef struct TreeNode* TreeNodePtr;
 
