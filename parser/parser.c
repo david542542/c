@@ -1,6 +1,3 @@
-test test test
-ok
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -9,24 +6,8 @@ ok
 // We have two stacks:
 // 1 - an operator that is not bound to operands (+, -, etc.)
 // 2 - a Operand stack for all operands (Variable, Constant, Unary/Binary expression)
-asdf
+
 typedef struct TreeNode* TreeNodePtr;
-
-int test;
-int test2;
-int test3;
-int hello;
-int ok;
-int newer;
-int asdf;
-asdf
-EXIT_FAILUREef
-aefe2323
-seed48e
-f;oka;soke;fokefe
-
-
-
 
 // ********** OPERATOR **************
 typedef enum {LeftToRight, RightToLeft} Associativity;
