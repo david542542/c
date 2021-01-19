@@ -13,6 +13,7 @@ int test;
 int test2;
 int test3;
 int hello;
+int ok;
 
 // ********** OPERATOR **************
 typedef enum {LeftToRight, RightToLeft} Associativity;
