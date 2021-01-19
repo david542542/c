@@ -9,6 +9,11 @@
 
 typedef struct TreeNode* TreeNodePtr;
 
+int test;
+int test2;
+int test3;
+int hello;
+
 // ********** OPERATOR **************
 typedef enum {LeftToRight, RightToLeft} Associativity;
 typedef enum {Unary, Binary} Arity;
