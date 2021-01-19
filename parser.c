@@ -1,5 +1,7 @@
 asdfasdfasfasdfasdffsasdfasdfasdfasdfi:redraw!
-asdfasdfasdfzzzasdfasdf:redraw!asdfasdfasdf
+asdfasdfasdfzz
+
+hello zasdfasdf:redraw!asdfasdfasdf
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
