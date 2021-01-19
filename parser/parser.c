@@ -1,4 +1,5 @@
 test test test
+ok
 
 #include <stdio.h>
 #include <stdlib.h>
