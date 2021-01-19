@@ -1,3 +1,5 @@
+test test test
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -16,10 +18,14 @@ int hello;
 int ok;
 int newer;
 int asdf;
+asdf
 EXIT_FAILUREef
-a
+aefe2323
 seed48e
-f
+f;oka;soke;fokefe
+
+
+
 
 // ********** OPERATOR **************
 typedef enum {LeftToRight, RightToLeft} Associativity;
