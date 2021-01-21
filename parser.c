@@ -26,6 +26,7 @@ Operator B_Times        =    {.precedence = 13*2, .associativity = LeftToRight, 
 Operator B_DividedBy    =    {.precedence = 13*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(/)", .code='/'};
 
 
+
 #define MAX_OPERATOR_STACK 100
 Operator *OperatorStack[MAX_OPERATOR_STACK];
 int operator_stack_size = 0;
