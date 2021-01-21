@@ -20,7 +20,7 @@ int_5 x = 500 (5 bytes);
 (could pad it with 0's, or could do something like movl + movb, but NOT grabbing all 8 and bit-shifting, as could error easily, or could do movb * 5)
 
 // dynamic tiling algorithms (look up sounds interesting)
-
+ok!
 static int gs;           // only accessible from 'this file scope' --> here to the end
 static int gss;          // only accessible from 'this file scope' --> here to the end
 
