@@ -41,6 +41,7 @@ void print_operator_stack()
         printf("%s", OperatorStack[i]->string);
         if (i != (operator_stack_size-1)) printf(", ");
     }
+
     putchar(']');
 }
 
