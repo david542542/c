@@ -37,6 +37,8 @@ extern static int static_ext;  // forward declaration for a static variable
 
 // Shift-Command-G to push changes to git with a generic commit.
 int square(int num) { // num is in %rdi
+asdf
+
     static int a;  // -4(%rbp) (points to middle of stack frame, positive offset points to params, negative to local vars), or %rsp (positive), 
     // rbp often inefficient, but can make things a bit simpler.
     // if push/pop is used, need to understand where offsets are relative to local variables and params.
