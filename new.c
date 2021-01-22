@@ -1,6 +1,6 @@
 #include<stdio.h>
 // cmd-b to toggle a breakpoint
-// ctrl-opt-cmd-g to enter debugging
+// ctrl-opt-cmd-g to enter debugging in adjacent panel -- :vert term -- to open a vertical terminal (:term for horizontal)
 
 // gdb shortcuts:
 // c  -- run program until next breakpoint (or finished)4
