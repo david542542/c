@@ -18,6 +18,16 @@ typedef struct Operator {
     char *string;       // helper for printing it
     char code;          // another helper for printing
 } Operator;
+
+// would go in the .h file declaration the definitions that will go in the main c file
+extern Operator U_Positive, U_Negative, B_Plus, B_Minus, B_Times, B_DividedBy;
+
+// example files.
+operator_stack.h // public, c is definitions + private stuff
+operand_stack.h
+
+
+// Should be done in the C file -- de
 Operator U_Positive     =    {.precedence = 15*2, .associativity = RightToLeft, .arity=Unary, .string="UNARY(+)", .code='+'};
 Operator U_Negative     =    {.precedence = 15*2, .associativity = RightToLeft, .arity=Unary, .string="UNARY(-)", .code='-'};
 Operator B_Plus         =    {.precedence = 12*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(+)", .code='+'};
