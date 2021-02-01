@@ -39,17 +39,16 @@ typedef struct OperatorStack {
     bool       is_resizable;
     size_t     size;
     size_t     max;
-
-    // (*init) done with the `create_operator_stack` function
-    void      (*delete)(OperatorStack* stack);
-
-    const Operator* (*top)   (OperatorStack* stack);              // peek to see top operator without popping stack
-    void      (*print) (OperatorStack* stack);
-
-    const Operator* (*pop)   (OperatorStack* stack);              // return Operator or NULL if nothing to pop
-    bool      (*push)  (OperatorStack* stack, const Operator* operator);   // return 1 if successfully pushed. will auto-resize if is_resizable
-
     const Operator** data;
+
+    //              (*init) done with the `create_operator_stack` function
+    void            (*delete)(OperatorStack* stack);
+
+    const Operator* (*top)   (OperatorStack* stack);
+    void            (*print) (OperatorStack* stack);
+    const Operator* (*pop)   (OperatorStack* stack);                              // return Operator or NULL if nothing to pop
+    bool            (*push)  (OperatorStack* stack, const Operator* operator);   // return 1 if successfully pushed. will auto-resize if is_resizable
+
 
 } OperatorStack;
 

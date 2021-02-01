@@ -27,7 +27,7 @@ OperatorStack* create_operator_stack(size_t size, bool is_resizable) {
     stack->pop           = pop_operator_stack;
 
     /* // now create the actual stack with the specified size */
-    stack->data         = malloc(size * sizeof(Operator*)); // how to do this?
+    stack->data         = malloc(size * sizeof(Operator*));
 
     return stack;
 }
