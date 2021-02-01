@@ -4,11 +4,11 @@
 #include "operator.h"
 
 
-void      delete_operator_stack(OperatorStack* stack);
+void            delete_operator_stack(OperatorStack* stack);
 const Operator* peek_operator_stack  (OperatorStack* stack);
-void      print_operator_stack (OperatorStack* stack);
+void            print_operator_stack (OperatorStack* stack);
 const Operator* pop_operator_stack   (OperatorStack* stack);
-bool      push_operator_stack  (OperatorStack* stack, const Operator* operator);
+bool            push_operator_stack  (OperatorStack* stack, const Operator* operator);
 
 
 OperatorStack* create_operator_stack(size_t size, bool is_resizable) {
