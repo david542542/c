@@ -2,7 +2,6 @@
 
 #ifndef __OPERATOR_H__
 #define __OPERATOR_H__
-#define MAX_OPERATOR_STACK 100
 
 typedef enum {LeftToRight, RightToLeft} Associativity;
 typedef enum {Unary, Binary} Arity;
