@@ -1,8 +1,10 @@
 #include<stdio.h>
+#include<string.h>
 #include<stdbool.h>
 #include<ctype.h>
 #include <stdint.h>
-#include "other/new.h"
+#include <stdlib.h>
+/* #include "new.h" */
 
 void countdown(int n) {
 
@@ -33,9 +35,116 @@ void swap(int* a, int* b) {
     *a=*b;
     *b=tmp;
 }
+int* sum_array(int* x) {
+    x = (int*) 44;
+    getchar();
+    // printf(x);
+    int sum=0;
+    for (int i=0; i < (sizeof(x) / sizeof(*x)); i++ ) {
+        sum += x[i];
+    }
+    // printf("%d\n", sum);
+    int* e = malloc(sizeof(*e)*3);
+    printf("Sizeof(e): %zu\n", sizeof(*e));
+    *e = 4;
+    e[1] = 5;
+    *(e+2) = 6;
+    *(e+7) = 9;
+
+    printf("%d\n", *(e+7));
+    int ex[3] = {1,7,9};
+    e = ex;
+
+
+    // char * hello    = "Hello";
+    // char * goodbye  = "Goodbye";
+    // printf("hello=%s, goodbye=%s\n", hello, goodbye);
+
+    // char * tmp_str  = hello;
+    // hello = goodbye; // here we change the address, not the value at the address
+    // goodbye = hello; 
+    // &ex = e;
+    // int e[] = e
+    return e;
+}
 int main(void)
 {
 
+    int da[] = {1,2,3};
+    int* da_ptr = (int*) da;
+    // Differences between an Array and an Array-cast-to-pointer
+
+    // the decayed pointer is not an lvalue!!!
+    int xa[] = {3,5,9,12};
+    printf("Sizeof: %zu\n", sizeof(xa));
+    int* e = sum_array((int*)xa);
+    printf("**%d**\n", e[0]);
+    sum_array(&xa[0]);
+    sum_array((int*) xa);
+    sum_array((int*) &xa);
+    // an array of three elements. Each element has type int[2] and is a coordinate.
+
+    int arrar[2];
+    memcpy(arrar, (int[2]){1,2}, sizeof(arrar)); // one way to initialize it
+    printf("The address of arrar is: %p, and of first element: %p\n", arrar, &arrar[0]);
+    arrar == &arrar[0]; 
+
+
+    // pointer arithmetic
+    int dates[4];
+    int *pointer_dates;
+
+    double bills[4];
+    double *pointer_bills;
+
+    // this will add sizeof(type) * i to the address!
+    // in other words, it adds one 'storage unit' to the pointer (like its an array and grabs the next index)
+    for (int i=0; i < 4; i ++)
+        printf("pointers + %d: %p %p\n", i, pointer_dates+i, pointer_bills+i);
+
+    // dates + 2 == &date[2];
+    // *(dates + 2) == dates[2];
+
+    // NOTE -- arrays and pointer have the following relationship
+    // ptr+i    == &arr[i]       // address-of element in array at index I is same as ptr + I
+    // *(ptr+1) == arr[i]       // value-of (ptr + I) is the same as array at index I, which grabs that element value
+    // *(ar + n) --> "Go to memory location 'ar', move over 'n' units, and retrieve the value there.
+    #define SIZE 4
+    long long items[4]   = {1LL,2LL,4LL,8LL};
+    long long *ptr_items = &items[0];
+    for (int i=0; i < SIZE; i++) {
+        printf("%d: Array: %lld | Pointer: %lld\n", i, items[i], ptr_items[i]);
+        printf("%d: AddressA: %p | AddressP: %p | Same? %c\n", i, &items[i], ptr_items+i, (&items[i]==ptr_items+i)?'y':'n');
+        printf("%d: ValueA: %lld | ValueP: %lld | Same? %c\n", i, items[i], *(ptr_items+i), (items[i]==*(ptr_items+i))?'y':'n');
+    }
+
+    // getchar();
+    // getchar();
+
+
+    // behind the scenes, the name of the array is also the address of the first element in the array!!
+    // int arrar = {1,2};
+    int coordinates[3][2] =  {
+        {0,0},
+        {2,2},
+        {5,5}
+    };
+    size_t array_size = sizeof(coordinates)/sizeof(coordinates[0]);
+    size_t element_size = sizeof(coordinates[0]) / sizeof(coordinates[0][0]);
+    // full element at position array[i] (coordinates hardcoded)
+    for (int i=0 ; i < array_size ; i++) {
+        printf("The coordinate at index %d is (%d, %d)\n", i, **(coordinates+i), *(*(coordinates+i)));
+        printf("The coordinate at index %d is (%d, %d)\n", i, coordinates[i][0], coordinates[i][1]);
+        // inner element at position array[i][j]
+        for (int j=0; j < element_size; j++) {
+            printf("The %c value at coordinate (%d, %d) is %d\n", (j==0)?'x':'y', coordinates[i][0], coordinates[i][1], coordinates[i][j]);
+        }
+    }
+    return 0;
+    // getchar(); getchar();
+
+    printf("The length of the mda array is: %zu and the number of elements is: %zu\n", 
+            sizeof(coordinates), sizeof(coordinates)/sizeof(coordinates[0]));
     int ax=6;
     short xar[ax];
     for (int i = 0; i < sizeof(xar)/sizeof(*xar); ++i) {
@@ -115,7 +224,7 @@ int main(void)
 
 
 
-    printf("%s\n", HELLO);
+    /* printf("%s\n", HELLO); */
     print_binary(8);
     putchar('\n');
     countdown(7);
