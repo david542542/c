@@ -20,27 +20,27 @@ typedef struct UnaryExpression {
 } UnaryExpression;
 
 typedef struct BinaryExpression {
-    Operator* type;
-    Operand* left;
-    Operand* right;
+    Operator*   type;
+    Operand*    left;
+    Operand*    right;
 } BinaryExpression;
 
 typedef struct Operand {
     OperandType type;
     union {
-            Variable variable; 
-            Constant constant; 
-            UnaryExpression unary;
-            BinaryExpression binary;
+        Variable         variable; 
+        Constant         constant; 
+        UnaryExpression  unary;
+        BinaryExpression binary;
         };
 } Operand;
 
 
 typedef struct OperandStack OperandStack;
 typedef struct OperandStack {
-    bool       is_resizable;
-    size_t     size;
-    size_t     max;
+    bool            is_resizable;
+    size_t          size;
+    size_t          max;
     const Operand** data; // data is a list of Operands: should it be Operand data[]? or Operand* data[]?
 
     //              (*init) done with the `create_operand_stack` function
