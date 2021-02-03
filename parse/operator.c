@@ -85,3 +85,12 @@ void print_operator_stack(OperatorStack* stack)
     }
     putchar(']');
 }
+
+
+
+
+/* void reduce_operator_stack(OperandStack* stack) */
+/* { */
+    /* // TODO */
+/* } */
+
