@@ -14,7 +14,7 @@ const typedef struct Operator {
 } Operator;
 
 // Shared operators
-// These are const singletons
+// These are singletons and const
 extern Operator U_Negative;
 extern Operator B_Plus;
 extern Operator B_Minus;
@@ -39,23 +39,16 @@ typedef struct OperatorStack {
     size_t     max;
 
     // data
-    const Operator** data;      // (const Operator) is the type, declare data as a (mutable) pointer to a (mutable) array of pointers to (const Operator)
-                                // why mutable pointer? (1) could re-alloc the pointed-to data if need to increase the size;
-                               //                       (2) could push/pop from the stack so need to point to new (const Operators)
-
-    // so should be able to do
-    // OS.data = 1234;      // ok
-    // Os.data[0] = 1234;
-    // but not OS.data[0].type = U_Plus
+    const Operator** data;      // need to review the const of the pointed-to object
 
     // non-modifying functions
     const Operator* (*top)   (const OperatorStack* stack);
     void            (*print) (const OperatorStack* stack);
 
     // modifying functions
-    bool            (*push)  (OperatorStack* stack, const Operator* operator);
-    const Operator* (*pop)   (OperatorStack* stack);
     void            (*delete)(OperatorStack* stack);
+    const Operator* (*pop)   (OperatorStack* stack);
+    bool            (*push)  (OperatorStack* stack, const Operator* operator);
 
 } OperatorStack;
 

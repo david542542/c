@@ -1,4 +1,4 @@
-w/ operator.c
+// operator.c
 #include "common.h"
 #define __OPERATOR_C__
 #include "operator.h"

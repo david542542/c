@@ -13,18 +13,11 @@ void parse(const char* const input_str)
     bool is_resizable = true;
     OperatorStack  *self = create_operator_stack(opt_stack_size, is_resizable);
     self->push(self, &U_Negative);
+    self->pop(self);
     self->push(self, &B_Times);
-
-    // const test
-    self->data[1] = (Operator*) 1234;   // ok, can change the pointer address of the Data array --> good because will be pushing/popping
-    self->data = (Operator**) 1234;     // ok, can change the address of the pointer itself     --> good because want to be able to resize it
-    self->data[0]->arity=5;                // don't allow because we want the Operators to be static/singletons so 
-
-    /* self->pop(self); */
-    /* self->push(self, &B_Times); */
-    /* self->push(self, &B_Plus); */
-    /* self->print(self); */
-    /* self->delete(self); */
+    self->push(self, &B_Plus);
+    self->print(self);
+    self->delete(self);
 
     /* // 2. test OperandStack -- ugh, cannot use `self` again since already declared with different type... */
     /* putchar('\n'); */
