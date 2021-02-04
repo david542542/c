@@ -1,23 +1,13 @@
-// operator.c
+w/ operator.c
 #include "common.h"
 #define __OPERATOR_C__
 #include "operator.h"
 
-
-void            delete_operator_stack(OperatorStack* stack);
-const Operator* peek_operator_stack  (OperatorStack* stack);
-void            print_operator_stack (OperatorStack* stack);
-const Operator* pop_operator_stack   (OperatorStack* stack);
+const Operator* peek_operator_stack  (const OperatorStack* stack);
+void            print_operator_stack (const OperatorStack* stack);
 bool            push_operator_stack  (OperatorStack* stack, const Operator* operator);
-
-// could also have these function pointers passed into the `create` function
-static const OperatorStack_VTable vtable = {
-    .delete = delete_operator_stack,
-    .pop    = pop_operator_stack,
-    .push   = push_operator_stack,
-    .top    = peek_operator_stack,
-    .print  = print_operator_stack,
-};
+const Operator* pop_operator_stack   (OperatorStack* stack);
+void            delete_operator_stack(OperatorStack* stack);
 
 OperatorStack* create_operator_stack(size_t size, bool is_resizable) {
 
@@ -26,22 +16,22 @@ OperatorStack* create_operator_stack(size_t size, bool is_resizable) {
     stack->is_resizable  = is_resizable;
     stack->max           = size;
     stack->size          = 0;
-    stack->vtable        = &vtable;
 
-    /* // now create the actual stack with the specified size */
+    // add in the functions
+    stack->top           = peek_operator_stack;
+    stack->print         = print_operator_stack;
+    stack->push          = push_operator_stack;
+    stack->pop           = pop_operator_stack;
+    stack->delete        = delete_operator_stack;
+
+    // create the actual stack with the specified size
     stack->data         = malloc(size * sizeof(Operator*));
-
 
     return stack;
 }
 
-void delete_operator_stack(OperatorStack* stack) 
-{
-    free(stack->data);
-    free(stack);
-}
-
-const Operator* peek_operator_stack(OperatorStack* stack)
+// non-modifying functions
+const Operator* peek_operator_stack(const OperatorStack* stack)
 {
     if (!stack->size) 
         return NULL;
@@ -49,15 +39,17 @@ const Operator* peek_operator_stack(OperatorStack* stack)
         return stack->data[stack->size-1];
 }
 
-const Operator* pop_operator_stack(OperatorStack* stack)
+void print_operator_stack(const OperatorStack* stack)
 {
-    if (!stack->size)
-        return NULL;
-    else
-        stack->size--;
-        return stack->data[stack->size -1];
+    printf("Length: %zu | OperatorStack: [", stack->size);
+    for (int i=0; i < stack->size; i++) {
+        printf("%s", stack->data[i]->string); // note that each operator has a string method 
+        if (i != (stack->size-1)) printf(", ");
+    }
+    putchar(']');
 }
 
+// modifying functions
 bool push_operator_stack(OperatorStack* stack, const Operator* operator)
 {
 
@@ -79,15 +71,23 @@ bool push_operator_stack(OperatorStack* stack, const Operator* operator)
     }
 }
 
-void print_operator_stack(OperatorStack* stack)
+const Operator* pop_operator_stack(OperatorStack* stack)
 {
-    printf("Length: %zu | OperatorStack: [", stack->size);
-    for (int i=0; i < stack->size; i++) {
-        printf("%s", stack->data[i]->string); // note that each operator has a string method 
-        if (i != (stack->size-1)) printf(", ");
-    }
-    putchar(']');
+    if (!stack->size)
+        return NULL;
+    else
+        stack->size--;
+        return stack->data[stack->size -1];
 }
+
+void delete_operator_stack(OperatorStack* stack) 
+{
+    free(stack->data);
+    free(stack);
+}
+
+
+
 
 
 
