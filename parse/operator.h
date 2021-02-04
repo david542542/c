@@ -39,7 +39,9 @@ typedef struct OperatorStack {
     size_t     max;
 
     // data
-    const Operator** data;      // need to review the const of the pointed-to object
+    const Operator** data;      // (const Operator) is the type, declare data as a (mutable) pointer to a (mutable) array of pointers to (const Operator)
+                                // why mutable pointer? (1) could re-alloc the pointed-to data if need to increase the size;	
+                                //                      (2) could push/pop from the stack so need to point to new (const Operators)	
 
     // non-modifying functions
     const Operator* (*top)   (const OperatorStack* stack);
