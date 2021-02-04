@@ -7,6 +7,7 @@
 *.d
 .vscode
 
+
 # Object files
 *.o
 *.ko
@@ -47,6 +48,7 @@
 *.su
 *.idb
 *.pdb
+*.gdb_history
 
 # Kernel Module Compile Results
 *.mod*
