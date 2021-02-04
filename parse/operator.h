@@ -6,47 +6,66 @@
 typedef enum {LeftToRight, RightToLeft} Associativity;
 typedef enum {Unary, Binary} Arity;
 
-typedef struct Operator {
-    int precedence;     // multiple of two so we can add on the associativity to the last bit
+const typedef struct Operator {
+    int precedence;         // multiple of two so we can add on the associativity to the last bit
     int arity;
     int associativity;
-    char *string;        // helper for printing the operator, for example, "BINARY(-)"
-    char code;          // helpful for debugging, for example, '+'
+    char *string;           // helper for printing the operator, for example, "BINARY(-)"
+    char code;              // helpful for debugging, for example, '+'
 } Operator;
 
 
 // Shared operators
+// These are singletons and const
+extern Operator U_Negative;
+extern Operator B_Plus;
+extern Operator B_Minus;
+extern Operator B_Times;
+extern Operator B_DividedBy;
 #ifdef  __OPERATOR_C__
-    const Operator U_Positive     =    {.precedence = 15*2, .associativity = RightToLeft, .arity=Unary, .string="UNARY(+)", .code='+'};
-    const Operator U_Negative     =    {.precedence = 15*2, .associativity = RightToLeft, .arity=Unary, .string="UNARY(-)", .code='-'};
-    const Operator B_Plus         =    {.precedence = 12*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(+)", .code='+'};
-    const Operator B_Minus        =    {.precedence = 12*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(-)", .code='-'};
-    const Operator B_Times        =    {.precedence = 13*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(*)", .code='*'};
-    const Operator B_DividedBy    =    {.precedence = 13*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(/)", .code='/'};
-#else
-    extern const Operator U_Negative;
-    extern const Operator B_Plus;
-    extern const Operator B_Minus;
-    extern const Operator B_Times;
-    extern const Operator B_DividedBy;
+    Operator U_Positive     =    {.precedence = 15*2, .associativity = RightToLeft, .arity=Unary, .string="UNARY(+)", .code='+'};
+    Operator U_Negative     =    {.precedence = 15*2, .associativity = RightToLeft, .arity=Unary, .string="UNARY(-)", .code='-'};
+    Operator B_Plus         =    {.precedence = 12*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(+)", .code='+'};
+    Operator B_Minus        =    {.precedence = 12*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(-)", .code='-'};
+    Operator B_Times        =    {.precedence = 13*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(*)", .code='*'};
+    Operator B_DividedBy    =    {.precedence = 13*2, .associativity = LeftToRight, .arity=Binary,.string="BINARY(/)", .code='/'};
 #endif
 
 
 // OperatorStack
+
+
+typedef struct OperatorStackVTable OperatorStackVTable;
+typedef struct OperatorStackVTable {
+    void            (*delete)(OperatorStackVTable* self);
+    const Operator* (*pop)   (OperatorStackVTable* self);
+    bool            (*push)  (OperatorStackVTable* self, const Operator* operator);
+    const Operator* (*top)   (OperatorStackVTable* self);
+    void            (*print) (OperatorStackVTable* self);
+} OperatorStackVTable;
+
 typedef struct OperatorStack OperatorStack;
 typedef struct OperatorStack {
+
+    // functions
+    const OperatorStackVTable *vtable;
+
+    // values
     bool       is_resizable;
     size_t     size;
     size_t     max;
-    const Operator** data;
 
-    //              (*init) done with the `create_operator_stack` function
-    void            (*delete)(OperatorStack* stack);
+    // data
+    const Operator** data;      // need to review the const of the pointed-to object
 
-    const Operator* (*top)   (OperatorStack* stack);
-    void            (*print) (OperatorStack* stack);
-    const Operator* (*pop)   (OperatorStack* stack);                              // return Operator or NULL if nothing to pop
-    bool            (*push)  (OperatorStack* stack, const Operator* operator);   // return 1 if successfully pushed. will auto-resize if is_resizable
+
+    // void            (*delete)(OperatorStack* self);
+    // const Operator* (*pop)   (OperatorStack* self);
+    // bool            (*push)  (OperatorStack* self, Operator* operator);
+
+    // const Operator* (*top)   (const OperatorStack* self);
+    // void            (*print) (const OperatorStack* self);
+
 
 
 } OperatorStack;

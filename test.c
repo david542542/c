@@ -67,9 +67,117 @@ int* sum_array(int* x) {
     // int e[] = e
     return e;
 }
+
+int add_two(int num) {
+    return num + 2;
+}
+int square(int n)
+{
+    return n*n;
+}
 int main(void)
 {
 
+    // const int a1=4;
+    // a1=2; // cannot do this because the a1 value is readonly (as guaranteed by the OS).
+    // const int* a1_ptr = &a1;
+    // a1_ptr = (void*) 10; // can change the pointer address of the item here.
+    // printf("a1 address: %p\n", a1_ptr);
+    // const int* const a1_ptr2 = &a1;
+    // a1_ptr2 = (void*) 10;   // cannot do this because the pointer address is now const
+
+
+    int b1 = 5;
+    
+    // 1. cannot change the value but can change the pointer address
+    // (const int) or "Constant int" is the type, and the Pointer address is referenced with (*b1_ptr)
+    const int *b1_ptr = &b1;
+    // *b1_ptr = 7;         // cannot change the value because "const int" is the type
+    b1_ptr = (int*) 144;    // <-- this is ok
+
+    // 2. can change the value but cannot change the pointer address
+    // (int) is the type and (* const b1_ptr2) is the constant pointer address
+    int* const b1_ptr2 = &b1;
+    *b1_ptr2 = 7;           // <-- this is ok
+    // b1_ptr2 = (int*) 123; // but cannot change pointer address
+
+    // 3. cannot change the value or pointer address
+    // (const int) is the constant type and (* const b1_ptr3) is the constant pointer address
+    const int * const b1_ptr3 = &b1;
+    // *b1_ptr3 = 7;           // <-- this is not allowed
+    // b1_ptr3 = (int*) 123; // <-- this is not allowed either
+
+    const char * name = "David";
+    name = "Todd"; // not illegal, because we are not changing the value! just pointing to a different string literal address
+
+    char* const name2 = "david";
+    // name2 = "Sarah"; // illegal since we are trying to change the memory address of the pointer at name2 now.
+
+    const char name3[] = "Tom";
+    // name3[1] = 'i'; // <-- illegal since trying to change the value
+    const char* name4 = name3;
+    // name4[1] = 'x';  // <--ilelgal since trying to change an individual char
+    name4 = "Hero"; // <-- ok since changing the memory address that is pointed to
+
+
+    // name
+    // name3 = "Hello";
+
+    const typedef struct Animal {
+        int id;         
+        char* name;
+    } Animal;
+    Animal dag = {.id=1, .name="Dog"};
+    // dog.id=2;         // illegal
+    // dog.name = "Bob"; // illegal
+    // dog = 1234;
+
+    typedef struct Animal2 {
+        int id;         
+        char* name;
+    } Animal2;
+    Animal2 dog = {.id=1, .name="Dog"};
+    dog.id=2;
+    dog.name = "Bob";
+    printf("%p\n", &dog);
+    // dog = &dog + 2; // cannot do this since it's on the stack...the memory address is the start of data itself, doesn't point anywhere
+
+
+    typedef struct Animal3 {
+        int id;         
+        char* name;
+    } Animal3;
+    Animal3 *dug = &(Animal3) {.id=1, .name="Dog"};
+    dug->id=3;
+    dug->name="Bobby";
+    dug = (Animal3*) 1234; // since its a pointer we can also reassign its address
+    // dog.id=2;
+    // dog.name = "Bob";
+
+    return 0;
+    int (*add_func)(int) = add_two;
+    int d = (*add_func)(10);
+    printf("%d\n", d);
+
+
+    int (*squared)(int) = &square; // note: they cannot have the same name
+    printf("The square of %d is %d\n", d, (*square)(d));
+    printf("The square of %d is %d\n", d, (&square)(d));
+    printf("The square of %d is %d\n", d, square(d));
+
+
+    // struct thing {
+        // int num; 
+        // int (*add_func)(int);
+    // };
+    // struct thing xx = {.num=4, .add_func=add_two};
+    // int yy = xx.add_func(xx.num);
+    // printf("%d\n", yy);
+    // void* item;
+    // int (*add)(int num);
+
+    // Item* something;
+    return 0;
     int da[] = {1,2,3};
     int* da_ptr = (int*) da;
     // Differences between an Array and an Array-cast-to-pointer
