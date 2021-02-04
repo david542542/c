@@ -10,6 +10,14 @@ void            print_operator_stack (OperatorStack* stack);
 const Operator* pop_operator_stack   (OperatorStack* stack);
 bool            push_operator_stack  (OperatorStack* stack, const Operator* operator);
 
+// could also have these function pointers passed into the `create` function
+static const OperatorStack_VTable vtable = {
+    .delete = delete_operator_stack,
+    .pop    = pop_operator_stack,
+    .push   = push_operator_stack,
+    .top    = peek_operator_stack,
+    .print  = print_operator_stack,
+};
 
 OperatorStack* create_operator_stack(size_t size, bool is_resizable) {
 
@@ -18,13 +26,7 @@ OperatorStack* create_operator_stack(size_t size, bool is_resizable) {
     stack->is_resizable  = is_resizable;
     stack->max           = size;
     stack->size          = 0;
-    
-    stack->vtable               = malloc(sizeof(OperatorStack_VTable));
-    stack->vtable->delete       = delete_operator_stack;
-    stack->vtable->pop          = pop_operator_stack;
-    stack->vtable->push         = push_operator_stack;
-    stack->vtable->top          = peek_operator_stack;
-    stack->vtable->print        = print_operator_stack;
+    stack->vtable        = &vtable;
 
     /* // now create the actual stack with the specified size */
     stack->data         = malloc(size * sizeof(Operator*));

@@ -9,7 +9,7 @@ typedef struct Person_VTable {
 typedef struct Person {
     int id;
     char* name;
-    Person_VTable *vtable;
+    const Person_VTable *vtable;
 } Person;
 
 void print_name(Person* person) {

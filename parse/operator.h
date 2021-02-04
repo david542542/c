@@ -48,7 +48,7 @@ typedef struct OperatorStack_VTable {
 typedef struct OperatorStack {
 
     // functions
-    OperatorStack_VTable *vtable;
+    const OperatorStack_VTable *vtable;
 
     // values
     bool       is_resizable;
