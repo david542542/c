@@ -13,6 +13,7 @@ bool            push_operator_stack  (OperatorStack* stack, const Operator* oper
 // could also have these function pointers passed into the `create` function
 static const OperatorStack_VTable vtable = {
     .delete = delete_operator_stack,
+
     .pop    = pop_operator_stack,
     .push   = push_operator_stack,
     .top    = peek_operator_stack,
