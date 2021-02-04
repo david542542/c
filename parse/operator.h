@@ -35,20 +35,20 @@ extern Operator B_DividedBy;
 // OperatorStack
 
 
-typedef struct OperatorStackVTable OperatorStackVTable;
-typedef struct OperatorStackVTable {
-    void            (*delete)(OperatorStackVTable* self);
-    const Operator* (*pop)   (OperatorStackVTable* self);
-    bool            (*push)  (OperatorStackVTable* self, const Operator* operator);
-    const Operator* (*top)   (OperatorStackVTable* self);
-    void            (*print) (OperatorStackVTable* self);
-} OperatorStackVTable;
-
 typedef struct OperatorStack OperatorStack;
+
+typedef struct OperatorStack_VTable {
+    void            (*delete)(OperatorStack* self);
+    const Operator* (*pop)   (OperatorStack* self);
+    bool            (*push)  (OperatorStack* self, const Operator* operator);
+    const Operator* (*top)   (OperatorStack* self);
+    void            (*print) (OperatorStack* self);
+} OperatorStack_VTable;
+
 typedef struct OperatorStack {
 
     // functions
-    const OperatorStackVTable *vtable;
+    OperatorStack_VTable *vtable;
 
     // values
     bool       is_resizable;
@@ -57,16 +57,6 @@ typedef struct OperatorStack {
 
     // data
     const Operator** data;      // need to review the const of the pointed-to object
-
-
-    // void            (*delete)(OperatorStack* self);
-    // const Operator* (*pop)   (OperatorStack* self);
-    // bool            (*push)  (OperatorStack* self, Operator* operator);
-
-    // const Operator* (*top)   (const OperatorStack* self);
-    // void            (*print) (const OperatorStack* self);
-
-
 
 } OperatorStack;
 

@@ -14,13 +14,12 @@ void parse(const char* const input_str)
     bool is_resizable = true;
     OperatorStack *opt_stack, *self;
     opt_stack = self = create_operator_stack(opt_stack_size, is_resizable);
-    /* const OperatorStackVTable *self_v = self->vtable; */
-    /* self_v->push(self_v, &U_Negative); */
-    /* opt_stack->pop(self); */
-    /* opt_stack->push(self, &B_Times); */
-    /* opt_stack->push(self, &B_Plus); */
-    /* opt_stack->print(self); */
-    /* opt_stack->delete(self); */
+    self->vtable->push(self, &U_Negative);
+    self->vtable->pop(self);
+    self->vtable->push(self, &B_Times);
+    self->vtable->push(self, &B_Plus);
+    self->vtable->print(self);
+    self->vtable->delete(self);
 
     /* // 2. test OperandStack -- ugh, cannot use `self` again since already declared with different type... */
     /* putchar('\n'); */

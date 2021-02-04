@@ -4,10 +4,10 @@
 #include "operator.h"
 
 
-/* void            delete_operator_stack(OperatorStack* stack); */
-/* const Operator* peek_operator_stack  (OperatorStack* stack); */
-/* void            print_operator_stack (OperatorStack* stack); */
-/* const Operator* pop_operator_stack   (OperatorStack* stack); */
+void            delete_operator_stack(OperatorStack* stack);
+const Operator* peek_operator_stack  (OperatorStack* stack);
+void            print_operator_stack (OperatorStack* stack);
+const Operator* pop_operator_stack   (OperatorStack* stack);
 bool            push_operator_stack  (OperatorStack* stack, const Operator* operator);
 
 
@@ -18,21 +18,16 @@ OperatorStack* create_operator_stack(size_t size, bool is_resizable) {
     stack->is_resizable  = is_resizable;
     stack->max           = size;
     stack->size          = 0;
-
-    /* OperatorStackVTable *vtable = (OperatorStackVTable*) stack->vtable; */
-    /* vtable->push = push_operator_stack; */
-    /* stack->vtable         */
-    /* stack->delete        = delete_operator_stack; */
-    /* stack->top           = peek_operator_stack; */
-    /* stack->print         = print_operator_stack; */
-
-    /* stack->push          = push_operator_stack; */
-    /* stack->pop           = pop_operator_stack; */
+    
+    stack->vtable               = malloc(sizeof(OperatorStack_VTable));
+    stack->vtable->delete       = delete_operator_stack;
+    stack->vtable->pop          = pop_operator_stack;
+    stack->vtable->push         = push_operator_stack;
+    stack->vtable->top          = peek_operator_stack;
+    stack->vtable->print        = print_operator_stack;
 
     /* // now create the actual stack with the specified size */
     stack->data         = malloc(size * sizeof(Operator*));
-    /* printf("Hello!\n"); */
-    stack->vtable->delete(stack->vtable);
 
 
     return stack;
