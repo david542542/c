@@ -29,7 +29,8 @@ bool reduce(Operator *current_operator, OperatorStack *opt_stack, OperandStack *
             Operand *opd = create_operand_from_expression(opt, child, NULL);
             opd_stack->push(opd_stack, opd);
         } else  // Binary
-            Operand *right = opd_stack->pop(opd_stack), left = opd_stack->pop(opd_stack);
+        {
+            Operand *right = opd_stack->pop(opd_stack), *left = opd_stack->pop(opd_stack);
             Operand *opd = create_operand_from_expression(opt, left, right);
             opd_stack->push(opd_stack, opd);
         }
