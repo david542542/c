@@ -22,14 +22,14 @@ bool reduce(Operator *current_operator, OperatorStack *opt_stack, OperandStack *
 
         // do the actual pop + push
         const Operator *opt = opt_stack->pop(opt_stack);
-        if (previous_operator->arity == Unary) {
+
+        if (previous_operator->arity == Unary)
+        {
             Operand *child = opd_stack->pop(opd_stack);
             Operand *opd = create_operand_from_expression(opt, child, NULL);
             opd_stack->push(opd_stack, opd);
-        } else  {   // Binary (for now)
-            // order of pops is important for Left/Right children
-            Operand *right = opd_stack->pop(opd_stack);
-            Operand *left  = opd_stack->pop(opd_stack);
+        } else  // Binary
+            Operand *right = opd_stack->pop(opd_stack), left = opd_stack->pop(opd_stack);
             Operand *opd = create_operand_from_expression(opt, left, right);
             opd_stack->push(opd_stack, opd);
         }
