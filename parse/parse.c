@@ -14,8 +14,6 @@ bool reduce(Operator *current_operator, OperatorStack *opt_stack, OperandStack *
     // If current operator is NULL, we can treat it as end of expression / right precedence = 0
     int left_precedence=-1, right_precedence = current_operator? current_operator->precedence : 0;
     if (current_operator->associativity == RightToLeft) right_precedence ++;
-    printf("Left precedence: %d | Right precedence: %d\n", left_precedence, right_precedence);
-    printf("Current Operator: %s | Previous Operator: %s\n", current_operator->string, previous_operator->string);
 
     do {
 
