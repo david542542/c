@@ -75,9 +75,9 @@ const Operator* pop_operator_stack(OperatorStack* stack)
 {
     if (!stack->size)
         return NULL;
-    else
-        stack->size--;
-        return stack->data[stack->size -1];
+    else {
+        return stack->data[--stack->size];
+    }
 }
 
 void delete_operator_stack(OperatorStack* stack) 

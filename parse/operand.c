@@ -2,7 +2,6 @@
 #include "common.h"
 #include "operand.h"
 
-
 // Operand
 void    print_operand   (const Operand* operand);
 void    delete_operand  (Operand* operand);
@@ -130,8 +129,7 @@ Operand* pop_operand_stack(OperandStack* stack)
     if (!stack->size)
         return NULL;
     else
-        stack->size--;
-        return stack->data[stack->size -1];
+        return stack->data[--stack->size];
 }
 
 bool push_operand_stack(OperandStack* stack, const Operand* operand)
