@@ -18,6 +18,7 @@ bool reduce(Operator *current_operator, OperatorStack *opt_stack, OperandStack *
     printf("Current Operator: %s | Previous Operator: %s\n", current_operator->string, previous_operator->string);
 
     do {
+
         left_precedence = (previous_operator->associativity == LeftToRight) ? previous_operator->precedence + 1 : previous_operator->precedence;
         if (right_precedence > left_precedence) break;
 
