@@ -87,13 +87,3 @@ void delete_operator_stack(OperatorStack* stack)
 }
 
 
-
-
-
-
-
-/* void reduce_operator_stack(OperandStack* stack) */
-/* { */
-    /* // TODO */
-/* } */
-
