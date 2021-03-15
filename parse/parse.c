@@ -42,6 +42,18 @@ bool reduce(Operator *current_operator, OperatorStack *opt_stack, OperandStack *
 
 void parse(const char* const input_str) 
 {
+    // identifying multi-character operators -- conceptually.
+    ++
+        ->
+        >>=
+        /* () <-- type cast? */
+        /* () <-- grouping */
+        /* (type){...} */
+        /* () <-- function call */
+        /* +[>...<]+ */
+        /* CPP vs. lexer vs. raw characters */
+    // 1. print AST
+    // 2. main()
 
     printf("Parsing expression: |%s|\n", input_str);
     size_t stack_size = 10;
@@ -66,7 +78,7 @@ void parse(const char* const input_str)
     Operand* op = create_operand_from_value(VariableType, 'a');
     self->push(self, op);
     Operand *op2 = create_operand_from_expression(
-        &B_Times,
+    Y    &B_Times,
         create_operand_from_value(VariableType, 'a'),
         create_operand_from_value(ConstantType, '1')
     );
